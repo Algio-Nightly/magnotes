@@ -1,0 +1,447 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Roboto:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;700;900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css');
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: #F4EFE6;
+  font-family: var(--magnotes-main-font), serif;
+}
+
+.font-sub {
+  font-family: var(--magnotes-sub-font), sans-serif !important;
+}
+
+:root {
+  --magnotes-main-font: 'Cormorant Garamond', serif;
+  --magnotes-sub-font: 'Montserrat', sans-serif;
+  --toastify-color-light: #F4EFE6;
+  --toastify-color-success: #5D2E2E;
+  /* Scholarly Red */
+  --toastify-color-warning: #8C7A6B;
+  /* Scholarly Brown */
+  --toastify-color-error: #3C2A21;
+  /* Dark Scholarly */
+  --toastify-color-info: #5D2E2E;
+  --toastify-text-color-light: #3C2A21;
+  --toastify-font-family: inherit;
+  --toastify-toast-bd-radius: 12px;
+}
+
+@theme {
+  --font-serif: var(--magnotes-main-font), Cormorant Garamond, serif;
+  --font-sans: var(--magnotes-sub-font), Inter, sans-serif;
+}
+
+.Toastify__toast {
+  background-color: #F4EFE6 !important;
+  color: #3C2A21 !important;
+  border: 1px solid rgba(60, 42, 33, 0.1) !important;
+  box-shadow: 0 12px 20px -5px rgba(60, 42, 33, 0.15) !important;
+}
+
+/* Accent Colors for Icons and Progress Bars */
+.Toastify__toast--success {
+  --toastify-icon-color-success: #5D2E2E !important;
+}
+
+.Toastify__progress-bar--success {
+  background: #5D2E2E !important;
+}
+
+.Toastify__toast--warning {
+  --toastify-icon-color-warning: #8C7A6B !important;
+}
+
+.Toastify__progress-bar--warning {
+  background: #8C7A6B !important;
+}
+
+.Toastify__toast--error {
+  --toastify-icon-color-error: #3C2A21 !important;
+}
+
+.Toastify__progress-bar--error {
+  background: #3C2A21 !important;
+}
+
+.Toastify__toast--info {
+  --toastify-icon-color-info: #5D2E2E !important;
+}
+
+.Toastify__progress-bar--info {
+  background: #5D2E2E !important;
+}
+
+.Toastify__close-button {
+  color: #3C2A21 !important;
+  opacity: 0.3;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+/* Universal Archival Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(140, 122, 107, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(93, 46, 46, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(140, 122, 107, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(93, 46, 46, 0.4);
+}
+
+.custom-scrollbar-light::-webkit-scrollbar-thumb {
+  background: rgba(244, 239, 230, 0.2);
+}
+
+.custom-scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 239, 230, 0.4);
+}
+
+/* Specific Custom Scrollbar Class */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(60, 42, 33, 0.15);
+  border-radius: 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(93, 46, 46, 0.5);
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(60, 42, 33, 0.15) transparent;
+}
+
+/* ============================================================
+   BULLETPROOF SCHOLARLY CHRONICLE -> MODER CARD GRID
+   ============================================================ */
+#scholarly-chronicle .react-calendar {
+  width: 100% !important;
+  max-width: 380px !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: inherit !important;
+  margin: 0 auto !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation {
+  display: flex !important;
+  height: 52px !important;
+  margin-bottom: 2.5rem !important;
+  background: transparent !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  background: #5D2E2E !important;
+  /* Bold Red Base */
+  border-radius: 50% !important;
+  color: #F4EFE6 !important;
+  border: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-size: 1.4rem !important;
+  box-shadow: 0 6px 15px rgba(93, 46, 46, 0.25) !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation button:enabled:hover {
+  background: #3C2A21 !important;
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 20px rgba(60, 42, 33, 0.3) !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation__label {
+  background: transparent !important;
+  pointer-events: none !important;
+  flex-grow: 1 !important;
+  max-width: 180px !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation__label__textContent {
+  font-size: 1.1rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: #3C2A21 !important;
+}
+
+#scholarly-chronicle .react-calendar__month-view__weekdays {
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-weight: 800 !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.3em !important;
+  color: #8C7A6B !important;
+  padding-bottom: 1.5rem !important;
+}
+
+#scholarly-chronicle .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+}
+
+/* THE REDDISH CARD TILES */
+#scholarly-chronicle .react-calendar__tile {
+  aspect-ratio: 1/1 !important;
+  padding: 0 !important;
+  background: rgba(93, 46, 46, 0.15) !important;
+  /* Distinct Red Background as requested */
+  border: 1.5px solid rgba(93, 46, 46, 0.1) !important;
+  border-radius: 14px !important;
+  /* Modern rounded cards */
+  font-family: inherit !important;
+  font-size: 0.95rem !important;
+  font-weight: 900 !important;
+  color: #3C2A21 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin: 0 !important;
+  box-shadow: 0 2px 5px rgba(93, 46, 46, 0.05) !important;
+}
+
+#scholarly-chronicle .react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 12px !important;
+  /* Intentional Card Gaps */
+}
+
+#scholarly-chronicle .react-calendar__tile:enabled:hover,
+#scholarly-chronicle .react-calendar__tile:enabled:focus {
+  background: rgba(93, 46, 46, 0.25) !important;
+  transform: translateY(-5px) scale(1.05) !important;
+  box-shadow: 0 8px 15px rgba(93, 46, 46, 0.15) !important;
+  z-index: 10 !important;
+}
+
+#scholarly-chronicle .react-calendar__tile--now {
+  border: 2px solid #5D2E2E !important;
+  background: rgba(93, 46, 46, 0.2) !important;
+  color: #5D2E2E !important;
+}
+
+#scholarly-chronicle .react-calendar__tile--active {
+  background: #5D2E2E !important;
+  color: #F4EFE6 !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 12px 25px rgba(93, 46, 46, 0.45) !important;
+  z-index: 20 !important;
+}
+
+#scholarly-chronicle .react-calendar__tile--neighboringMonth {
+  opacity: 0.1 !important;
+  background: transparent !important;
+  border: 1px dashed rgba(93, 46, 46, 0.05) !important;
+}
+
+#scholarly-chronicle .react-calendar__month-view__days__day--weekend {
+  color: #5D2E2E !important;
+}
+
+#scholarly-chronicle .react-calendar__tile--active.react-calendar__month-view__days__day--weekend {
+  color: #F4EFE6 !important;
+}
+
+#scholarly-chronicle .react-calendar {
+  width: 100% !important;
+  max-width: 350px !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: inherit !important;
+  margin: 0 auto !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation {
+  display: flex !important;
+  height: 48px !important;
+  margin-bottom: 2rem !important;
+  background: transparent !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  padding: 0 !important;
+  background: #5D2E2E !important;
+  /* Bold red as requested */
+  border-radius: 50% !important;
+  color: #F4EFE6 !important;
+  border: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-size: 1.2rem !important;
+  box-shadow: 0 4px 10px rgba(93, 46, 46, 0.2) !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation button:enabled:hover {
+  background: #3C2A21 !important;
+  transform: scale(1.1) rotate(5deg);
+}
+
+#scholarly-chronicle .react-calendar__navigation__label {
+  background: transparent !important;
+  pointer-events: none !important;
+  flex-grow: 1 !important;
+}
+
+#scholarly-chronicle .react-calendar__navigation__label__textContent {
+  font-size: 1rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: #3C2A21 !important;
+}
+
+#scholarly-chronicle .react-calendar__month-view__weekdays {
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-weight: 800 !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.25em !important;
+  color: #8C7A6B !important;
+  padding-bottom: 1.5rem !important;
+}
+
+#scholarly-chronicle .react-calendar__tile {
+  aspect-ratio: 1/1 !important;
+  padding: 0 !important;
+  background: rgba(93, 46, 46, 0.12) !important;
+  /* Prominent redoish background for ALL */
+  border: 1.5px solid rgba(93, 46, 46, 0.1) !important;
+  border-radius: 12px !important;
+  font-family: inherit !important;
+  font-size: 0.85rem !important;
+  font-weight: 900 !important;
+  /* Extra bold numbers */
+  color: #3C2A21 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin: 0 !important;
+}
+
+#scholarly-chronicle .react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 10px !important;
+}
+
+#scholarly-chronicle .react-calendar__tile--now {
+  border: 2px solid #5D2E2E !important;
+  background: rgba(93, 46, 46, 0.18) !important;
+}
+
+#scholarly-chronicle .react-calendar__tile--active {
+  background: #5D2E2E !important;
+  color: #F4EFE6 !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 10px 20px rgba(93, 46, 46, 0.4) !important;
+  z-index: 10;
+}
+
+#scholarly-chronicle .react-calendar__tile--neighboringMonth {
+  opacity: 0.2 !important;
+  background: transparent !important;
+}
+
+/* ============================================================
+   SCHOLARLY MARKDOWN STYLING (PROSE)
+   ============================================================ */
+.prose {
+  color: #3C2A21;
+  max-width: none;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: #5D2E2E;
+  font-weight: 800;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid rgba(93, 46, 46, 0.1);
+  padding-bottom: 0.2em;
+}
+
+.prose p {
+  margin-bottom: 1.2em;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  /* Respect single line breaks in scholarly inscriptions */
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.5em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-bottom: 0.5em;
+}
+
+.prose strong {
+  color: #5D2E2E;
+  font-weight: 900;
+}
+
+.prose blockquote {
+  border-left: 4px solid #5D2E2E;
+  padding-left: 1.5em;
+  font-style: italic;
+  color: #8C7A6B;
+  margin: 1.5em 0;
+}
+
+.prose code {
+  background: rgba(93, 46, 46, 0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}

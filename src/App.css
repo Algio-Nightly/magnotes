@@ -1,0 +1,13 @@
+
+/* Month Transitions */
+.scribe-calendar .react-calendar__month-view__days__day--neighboringMonth {
+    opacity: 0.2 !important;
+}
+
+.scribe-calendar .react-calendar__month-view__days__day--weekend {
+    color: #5D2E2E !important;
+}
+
+.scribe-calendar .react-calendar__tile--active.react-calendar__month-view__days__day--weekend {
+    color: #F4EFE6 !important;
+}
