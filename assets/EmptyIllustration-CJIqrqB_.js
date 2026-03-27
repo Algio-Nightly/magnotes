@@ -1,0 +1,1 @@
+var e=`/magnotes/assets/EmptyIllustration-mxwqQCDN.png`;export{e as t};
