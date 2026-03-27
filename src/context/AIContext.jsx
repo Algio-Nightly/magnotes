@@ -75,7 +75,7 @@ export const AIProvider = ({ children }) => {
 
             // Prepare Context
             const notesContext = taggedNotes.length > 0 
-                ? `\nRESEARCH MATERIALS FOR THIS SPECIFIC INQUIRY:\n${taggedNotes.map(n => `--- MEMORIAL: ${n.title} ---\n${n.content}\n`).join('\n')}`
+                ? `\nRESEARCH MATERIALS FOR THIS SPECIFIC INQUIRY:\n${taggedNotes.map(n => `--- TITLE: ${n.title} ---\n${n.content}\n`).join('\n')}`
                 : '';
 
             const globalContext = `
@@ -94,7 +94,7 @@ export const AIProvider = ({ children }) => {
                 ${notesContext}
                 
                 ACTION CAPABILITY:
-                If the user asks you to "Save this", "Create a note", or "Add to archives", you MUST output this exact JSON block at the end of your response:
+                If the user asks you to "Save this", "Create a note", "Generate a note", or "Add to archives", you MUST output this exact JSON block at the end of your response:
                 { "action": "create_note", "notebookId": "${targetNotebookId || "TARGET_NB_ID"}", "title": "Note Title", "content": "Markdown Content" }
                 ${targetNotebookId ? "PRIORITIZE using the ACTIVE TARGET NOTEBOOK ID provided in the context." : "Use the valid Notebook IDs provided in the context."}
                 
@@ -152,7 +152,7 @@ export const AIProvider = ({ children }) => {
     const clearChat = () => {
         setMessages([{
             role: 'assistant',
-            content: 'The archives have been cleared. A fresh scroll awaits.'
+            content: 'The History has been cleared. A fresh conversation awaits.'
         }]);
     };
 

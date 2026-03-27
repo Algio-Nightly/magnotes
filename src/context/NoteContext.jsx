@@ -165,9 +165,8 @@ export const StateProvider = ({ children }) => {
   };
 
   const getLevelThreshold = (level) => {
-    // Pattern: 1000, 1200, 1600, 1800...
-    const thresholds = [1000, 1200, 1600, 1800, 2200, 2400, 2800, 3000];
-    return thresholds[level - 1] || (1000 + (level - 1) * 300);
+    // A consistent scholarly progression: 1000 base, +400 for each level
+    return 1000 + (level - 1) * 400;
   };
 
   const getNotebookLevelingData = (notebookId) => {

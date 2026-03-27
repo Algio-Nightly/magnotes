@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useNotes } from '../context/NoteContext';
 import { toast } from 'react-toastify';
 import ScholarlyConfirm from './ScholarlyConfirm';
+import ScholarlyDropdown from './ScholarlyDropdown';
 
 const TaskCard = ({ task, onToggle, onDelete, onToggleObjective, onDeleteObjective, onToggleRevision, state }) => {
     return (
@@ -348,15 +349,16 @@ const TaskBoardandNotes = () => {
                                     TASKS
                                 </h2>
                                 <div className="flex items-center gap-4">
-                                    <select 
+                                    <ScholarlyDropdown 
                                         value={taskSort}
-                                        onChange={(e) => setTaskSort(e.target.value)}
-                                        className="bg-transparent border-none text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#8C7A6B] focus:outline-none cursor-pointer hover:text-[#5D2E2E] transition-colors text-right"
-                                    >
-                                        <option value="difficulty-desc">Lv ↓</option>
-                                        <option value="difficulty-asc">Lv ↑</option>
-                                        <option value="deadline-soon">Soon</option>
-                                    </select>
+                                        onChange={setTaskSort}
+                                        options={[
+                                            { value: "difficulty-desc", label: "Lv ↓" },
+                                            { value: "difficulty-asc", label: "Lv ↑" },
+                                            { value: "deadline-soon", label: "Soon" }
+                                        ]}
+                                        minWidth="100px"
+                                    />
                                     <div className="w-px h-4 bg-[#3C2A21]/10"></div>
                                     <span className="text-[0.6rem] font-black text-[#8C7A6B]/60 uppercase tracking-[0.2em]">
                                         {accomplishedTasks.length}/{notebookTasks.length}
@@ -428,15 +430,16 @@ const TaskBoardandNotes = () => {
                                     Notes
                                 </h2>
                                 <div className="flex items-center gap-4">
-                                    <select 
+                                    <ScholarlyDropdown 
                                         value={noteSort}
-                                        onChange={(e) => setNoteSort(e.target.value)}
-                                        className="bg-transparent border-none text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#8C7A6B] focus:outline-none cursor-pointer hover:text-[#5D2E2E] transition-colors text-right"
-                                    >
-                                        <option value="newest">Recent</option>
-                                        <option value="oldest">Ancient</option>
-                                        <option value="alpha">A-Z</option>
-                                    </select>
+                                        onChange={setNoteSort}
+                                        options={[
+                                            { value: "newest", label: "Recent" },
+                                            { value: "oldest", label: "Ancient" },
+                                            { value: "alpha", label: "A-Z" }
+                                        ]}
+                                        minWidth="100px"
+                                    />
                                     <div className="w-px h-4 bg-[#3C2A21]/10"></div>
                                     <button 
                                         onClick={() => setIsNoteModalOpen(true)}

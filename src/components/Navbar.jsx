@@ -1,10 +1,8 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useTimer } from '../context/TimerContext'
-import { useTheme } from '../context/ThemeContext'
 
 const Navbar = () => {
   const { timeLeft, isActive, startTimer, pauseTimer, resetTimer, formatTime } = useTimer();
-  const { fontFamily, setFontFamily, fontOptions } = useTheme();
   const navItems = [
     { name: "Dashboard", path: "/" },
     { name: "Notebooks", path: "/notebooks" },

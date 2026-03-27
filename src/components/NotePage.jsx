@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useNotes } from '../context/NoteContext';
 import { useAI } from '../context/AIContext';
 import { toast } from 'react-toastify';
 import ScholarlySpinner from './ScholarlySpinner';
 import ScholarlyConfirm from './ScholarlyConfirm';
+import ScholarlyDropdown from './ScholarlyDropdown';
 
 const NotePage = () => {
     const { noteId } = useParams();
@@ -228,7 +232,42 @@ const NotePage = () => {
                                     />
                                 ) : (
                                     <div className="w-full min-h-[60vh] prose prose-stone lg:prose-xl max-w-none text-[#3C2A21]/90 pb-40 font-serif">
-                                        <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                                        <ReactMarkdown 
+                                            remarkPlugins={[remarkMath, remarkGfm]} 
+                                            rehypePlugins={[rehypeKatex]}
+                                            components={{
+                                                code({ node, inline, className, children, ...props }) {
+                                                    const match = /language-(\w+)/.exec(className || '');
+                                                    return !inline && match ? (
+                                                        <div className="my-8 rounded-sm overflow-hidden border border-[#3C2A21]/10 shadow-sm transition-all hover:shadow-md">
+                                                            <div className="bg-[#3C2A21]/5 px-4 py-2 text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#8C7A6B] border-b border-[#3C2A21]/5 flex justify-between items-center group">
+                                                                <span>{match[1]} Scholar Analysis</span>
+                                                                <span className="opacity-0 group-hover:opacity-100 transition-opacity">Archive Code</span>
+                                                            </div>
+                                                            <SyntaxHighlighter
+                                                                style={solarizedlight}
+                                                                language={match[1]}
+                                                                PreTag="div"
+                                                                customStyle={{
+                                                                    margin: 0,
+                                                                    padding: '1.5rem',
+                                                                    backgroundColor: 'rgba(244, 239, 230, 0.5)',
+                                                                    fontFamily: 'monospace',
+                                                                    fontSize: '0.9rem',
+                                                                }}
+                                                                {...props}
+                                                            >
+                                                                {String(children).replace(/\n$/, '')}
+                                                            </SyntaxHighlighter>
+                                                        </div>
+                                                    ) : (
+                                                        <code className={className} {...props}>
+                                                            {children}
+                                                        </code>
+                                                    );
+                                                }
+                                            }}
+                                        >
                                             {noteData.content}
                                         </ReactMarkdown>
                                     </div>
@@ -251,25 +290,19 @@ const NotePage = () => {
                                         className="w-full bg-white/50 border border-[#3C2A21]/15 rounded-sm px-4 py-3 text-sm font-serif focus:outline-none focus:border-[#5D2E2E]/40 transition-all placeholder:text-[#8C7A6B]/40 shadow-sm min-h-[100px] resize-none"
                                     />
                                 </div>
-
                                 <div className="w-full">
                                     <label className="block text-[0.7rem] font-bold uppercase tracking-widest text-[#8C7A6B] mb-2 px-2">Transcription Mode</label>
-                                    <div className="relative">
-                                        <select
-                                            value={aiOption}
-                                            onChange={(e) => setAiOption(e.target.value)}
-                                            className="w-full bg-white/50 border border-[#3C2A21]/15 rounded-sm px-4 py-3 text-[0.65rem] font-bold uppercase tracking-widest focus:outline-none focus:border-[#5D2E2E]/40 appearance-none cursor-pointer shadow-sm text-[#3C2A21]"
-                                        >
-                                            <option value="generate">Option 1: Generate Notes (Append)</option>
-                                            <option value="summarize">Option 2: Summarize Content (Replace)</option>
-                                            <option value="transcript">Option 3: Format from Transcript (Append)</option>
-                                        </select>
-                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                            </svg>
-                                        </div>
-                                    </div>
+                                    <ScholarlyDropdown 
+                                        value={aiOption}
+                                        onChange={setAiOption}
+                                        options={[
+                                            { value: "generate", label: "Option 1: Generate Notes (Append)" },
+                                            { value: "summarize", label: "Option 2: Summarize Content (Replace)" },
+                                            { value: "transcript", label: "Option 3: Format from Transcript (Append)" }
+                                        ]}
+                                        minWidth="100%"
+                                        fullWidth={true}
+                                    />
                                 </div>
 
                                 <div className="flex gap-3 relative">

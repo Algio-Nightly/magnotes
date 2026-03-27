@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useNotes } from '../context/NoteContext';
+import { useNotes } from '../context/NoteContext.jsx';
+import ScholarlyDropdown from './ScholarlyDropdown';
 import { toast } from 'react-toastify';
 import ScholarlyConfirm from './ScholarlyConfirm';
 
@@ -209,7 +210,6 @@ const Subjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [sortBy, setSortBy] = useState("recency");
-  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   const basePanel = "bg-[#F4EFE6]/[0.85] backdrop-blur-sm border border-[#3C2A21]/[0.1] rounded-md p-8 shadow-lg transition-all duration-500";
 
   // Debouncing Logic
@@ -258,11 +258,11 @@ const Subjects = () => {
         </div>
         
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full xl:w-auto">
-          {/* Search Box */}
-          <div className="relative group flex-1 xl:w-64">
+          {/* Search Box - Expanded for better scholarly discovery */}
+          <div className="relative group xl:w-[480px] flex-grow">
             <input 
               type="text" 
-              placeholder="Search Subjects..." 
+              placeholder="Search scholarly subjects..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-white/40 border border-[#3C2A21]/10 rounded-sm py-4 pl-12 pr-4 focus:outline-none focus:border-[#5D2E2E] focus:bg-white/60 transition-all font-sans font-bold text-xs uppercase tracking-widest placeholder:text-[#8C7A6B]/50 shadow-inner"
@@ -272,46 +272,19 @@ const Subjects = () => {
             </svg>
           </div>
 
-          {/* Custom Sort Dropdown */}
-          <div className="relative xl:w-52">
-            <button 
-              onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
-              className="w-full bg-white/40 border border-[#3C2A21]/10 rounded-sm py-4 px-6 flex items-center justify-between focus:outline-none focus:border-[#5D2E2E] focus:bg-white/60 transition-all font-sans font-bold text-xs uppercase tracking-[0.2em] text-[#3C2A21] shadow-inner"
-            >
-              <span className="truncate pr-2">
-                {sortBy === "recency" ? "Last Active" : 
-                 sortBy === "name" ? "Subject Name" : 
-                 sortBy === "notebooks" ? "Notebook Count" : 
-                 sortBy === "completed" ? "Tasks Completed" : "Total Tasks"}
-              </span>
-              <svg className={`transition-transform duration-300 text-[#8C7A6B] shrink-0 ${isSortMenuOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-              </svg>
-            </button>
-            
-            {isSortMenuOpen && (
-              <div className="absolute top-full left-0 w-full mt-2 z-50 bg-[#F4EFE6]/[0.98] backdrop-blur-xl border border-[#3C2A21]/15 rounded-sm shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
-                {[
-                  { value: "recency", label: "Last Active" },
-                  { value: "name", label: "Subject Name" },
-                  { value: "notebooks", label: "Notebook Count" },
-                  { value: "completed", label: "Tasks Completed" },
-                  { value: "total", label: "Total Tasks" }
-                ].map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => {
-                      setSortBy(opt.value);
-                      setIsSortMenuOpen(false);
-                    }}
-                    className={`w-full text-left px-6 py-4 text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-all hover:bg-[#5D2E2E]/[0.05] border-b border-[#3C2A21]/[0.05] last:border-none ${sortBy === opt.value ? 'text-[#5D2E2E] bg-[#5D2E2E]/[0.03]' : 'text-[#8C7A6B]'}`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Unified Scholarly Sort Dropdown - Refined width */}
+          <ScholarlyDropdown 
+            value={sortBy}
+            onChange={setSortBy}
+            options={[
+              { value: "recency", label: "Last Active" },
+              { value: "name", label: "Subject Name" },
+              { value: "notebooks", label: "Notebook Count" },
+              { value: "completed", label: "Tasks Completed" },
+              { value: "total", label: "Total Tasks" }
+            ]}
+            minWidth="180px"
+          />
 
           <button 
             onClick={() => setIsFormOpen(true)}
